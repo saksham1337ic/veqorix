@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://veqorix.com/sitemap.xml

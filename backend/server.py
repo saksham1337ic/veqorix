@@ -1,116 +1,172 @@
 import asyncio
-from contextlib import suppress
-from fastapi import FastAPI, APIRouter, Query
-from dotenv import load_dotenv
-from starlette.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
-from pymongo import ASCENDING, DESCENDING, IndexModel
-import os
 import logging
-from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+import os
+import smtplib
+import ssl
 import uuid
+from contextlib import suppress
 from datetime import datetime, timezone
+from email.message import EmailMessage
+from pathlib import Path
+from typing import List, Literal, Optional
 
+from dotenv import load_dotenv
+from fastapi import APIRouter, FastAPI
+from motor.motor_asyncio import AsyncIOMotorClient
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, model_validator
+from pymongo import DESCENDING, IndexModel
+from starlette.middleware.cors import CORSMiddleware
 
 ROOT_DIR = Path(__file__).parent
-load_dotenv(ROOT_DIR / '.env')
+load_dotenv(ROOT_DIR / ".env")
 
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+client = AsyncIOMotorClient(os.environ["MONGO_URL"])
+db = client[os.environ["DB_NAME"]]
 
-# One entry per collection: every field a route filters, sorts or dedupes on. Add the index in the same edit as the query.
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+logger = logging.getLogger(__name__)
+
 INDEXES: dict[str, list[IndexModel]] = {
-    "status_checks": [
-        IndexModel([("id", ASCENDING)], name="id", unique=True),
-        IndexModel([("timestamp", DESCENDING)], name="timestamp_desc"),
-    ],
+    "quotes": [IndexModel([("created_at", DESCENDING)], name="created_at_desc")],
 }
 
 
 async def ensure_indexes() -> None:
     for collection, models in INDEXES.items():
-        for model in models:  # one at a time so a bad spec skips only itself
+        for model in models:
             try:
                 await db[collection].create_indexes([model])
-            except Exception as exc:  # never block boot on an index; the log line names what to fix
-                logging.getLogger(__name__).error("ensure_indexes(%s.%s): %s", collection, model.document["name"], exc)
+            except Exception as exc:
+                logger.error("ensure_indexes(%s.%s): %s", collection, model.document["name"], exc)
 
-# Create the main app without a prefix
+
+TRADES = {
+    "roofing-masonry": "Roofing & Masonry", "hvac": "HVAC", "plumbing": "Plumbing", "electrical": "Electrical",
+    "landscaping": "Landscaping", "snow-removal": "Snow Removal", "cleaning": "Cleaning", "painting": "Painting",
+    "pest-control": "Pest Control", "other": "Other",
+}
+NEEDS = {
+    "website": "Website", "google-ads": "Google Ads", "social-media": "Social media", "local-seo": "Local SEO",
+    "ai-receptionist": "AI receptionist", "ai-chat-assistant": "AI chat assistant", "not-sure": "Not sure",
+}
+
+Trade = Literal[tuple(TRADES)]  # type: ignore[valid-type]
+Need = Literal[tuple(NEEDS)]  # type: ignore[valid-type]
+
+
+class QuoteIn(BaseModel):
+    model_config = ConfigDict(str_strip_whitespace=True, extra="ignore")
+    name: str = Field(min_length=1, max_length=120)
+    business_name: str = Field(min_length=1, max_length=150)
+    trade: Trade
+    city: str = Field(min_length=1, max_length=150)
+    country: Literal["Canada", "USA", "Other"]
+    website: Optional[str] = Field(default=None, max_length=300)
+    needs: List[Need] = Field(default_factory=list, max_length=10)
+    contact_method: Literal["phone", "email", "text"]
+    phone: Optional[str] = Field(default=None, max_length=40)
+    email: EmailStr
+    message: Optional[str] = Field(default=None, max_length=5000)
+    company_fax: Optional[str] = None  # honeypot
+
+    @model_validator(mode="after")
+    def phone_when_needed(self):
+        if self.contact_method != "email" and not self.phone and not self.company_fax:
+            raise ValueError("Please add a phone number so we can call or text you.")
+        return self
+
+
+class QuoteOut(BaseModel):
+    ok: bool
+    message: str
+
+
+def build_email(q: QuoteIn, quote_id: str) -> EmailMessage:
+    needs = ", ".join(NEEDS[n] for n in q.needs) or "-"
+    msg = EmailMessage()
+    msg["Subject"] = f"New quote request: {q.business_name} ({TRADES[q.trade]}, {q.city})"
+    msg["From"] = f"Veqorix Website <{os.environ['MAIL_FROM']}>"
+    msg["To"] = os.environ["QUOTE_NOTIFY_TO"]
+    msg["Reply-To"] = str(q.email)
+    msg.set_content(
+        f"New quote request from veqorix.com\n\n"
+        f"Name: {q.name}\nBusiness: {q.business_name}\nTrade: {TRADES[q.trade]}\n"
+        f"City/Region: {q.city}\nCountry: {q.country}\nCurrent website: {q.website or '-'}\n"
+        f"Needs: {needs}\nBest way to reach: {q.contact_method}\n"
+        f"Phone: {q.phone or '-'}\nEmail: {q.email}\n\nMessage:\n{q.message or '-'}\n\n"
+        f"Reference: {quote_id}\n"
+    )
+    return msg
+
+
+def send_email(msg: EmailMessage) -> None:
+    host, port = os.environ["SMTP_HOST"], int(os.environ["SMTP_PORT"])
+    ctx = ssl.create_default_context()
+    if port == 465:
+        with smtplib.SMTP_SSL(host, port, timeout=20, context=ctx) as s:
+            s.login(os.environ["SMTP_USER"], os.environ["SMTP_PASSWORD"])
+            s.send_message(msg)
+    else:
+        with smtplib.SMTP(host, port, timeout=20) as s:
+            s.starttls(context=ctx)
+            s.login(os.environ["SMTP_USER"], os.environ["SMTP_PASSWORD"])
+            s.send_message(msg)
+
+
 app = FastAPI()
-
-# Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
 
-# Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
-    
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-
-class StatusCheckCreate(BaseModel):
-    client_name: str
-
-# Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Veqorix API"}
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks(limit: int = Query(20, ge=1, le=100)):
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).sort("timestamp", -1).limit(limit).to_list(limit)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
-    return status_checks
+@api_router.post("/quotes", response_model=QuoteOut, status_code=201)
+async def create_quote(q: QuoteIn):
+    ok = QuoteOut(ok=True, message="Quote request received")
+    if q.company_fax:
+        logger.info("Honeypot triggered; quote discarded")
+        return ok
 
-# Include the router in the main app
+    quote_id = str(uuid.uuid4())
+    doc = q.model_dump(mode="json", exclude={"company_fax"})
+    doc.update(id=quote_id, created_at=datetime.now(timezone.utc).isoformat(), email_status="pending")
+    await db.quotes.insert_one(doc)
+
+    status = "sent"
+    if not os.environ.get("SMTP_PASSWORD"):
+        status = "not_configured"
+        logger.warning("SMTP_PASSWORD missing; quote %s saved but not emailed", quote_id)
+    else:
+        try:
+            await asyncio.to_thread(send_email, build_email(q, quote_id))
+        except Exception as exc:
+            status = "failed"
+            logger.error("Quote %s email failed: %s", quote_id, type(exc).__name__)
+    await db.quotes.update_one({"id": quote_id}, {"$set": {"email_status": status}})
+    return ok
+
+
 app.include_router(api_router)
 
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_origins=os.environ.get("CORS_ORIGINS", "*").split(","),
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
 
 @app.on_event("startup")
 async def start_index_build():
-    app.state.index_task = asyncio.create_task(ensure_indexes())  # background: a big index build must not block boot
+    app.state.index_task = asyncio.create_task(ensure_indexes())
+
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
-    app.state.index_task.cancel()  # stop a build still running before its client closes
+    app.state.index_task.cancel()
     with suppress(asyncio.CancelledError):
         await app.state.index_task
     client.close()

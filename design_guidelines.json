@@ -1,0 +1,257 @@
+{
+  "project_name": "Veqorix Marketing Site",
+  "app_type": "marketing_site",
+  "target_audience": "Busy, non-technical 40-something home-service contractor owner-operators in Canada and USA (roofers, HVAC techs, plumbers, electricians, landscapers, painters, masons, pest control, snow removal) viewing primarily on mobile phones.",
+  "brand_archetype": "The Honest Master Craftsman / Field Partner (Grounded, trustworthy, no-fluff, tactical clarity)",
+  "emotional_tone": "Friendly, direct, local, dependable, confident — feels like an experienced lead contractor talking across a truck tailgate, zero agency jargon, zero tech hype, zero emojis.",
+  
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": {
+    "anti_ai_slop": "Never use generic floating purple blobs, gradients over 20%, or childish illustration icons. Avoid buzzword copy like 'synergy', 'disruptive digital transformation', or 'cutting-edge AI ecosystem'. Use plain contractor English: 'More calls from your service area', 'A website that works on phones while you are on a ladder'.",
+    "mobile_priority": "Mobile viewport is tier-1. Hard requirement: Sticky mobile bottom bar with high-contrast 'Call (888) 492-7489' and 'Get Free Quote' buttons. Minimum tap targets: 48px height, generous 16px touch padding.",
+    "typography_rules": "Strictly NO Inter for headings. Use Chivo, Cabinet Grotesk, or Barlow Condensed / Oswald for headings (heavy, sturdy, punchy construction feel) paired with IBM Plex Sans / DM Sans for ultra-readable body text. High contrast (APCA compliant), dark charcoal on warm off-white.",
+    "header_nav": "Sticky header with solid/glassmorphic backing (min 95% opacity or heavy blur backdrop-blur-xl bg-white/95 border-b border-stone-200). Never transparent over page images. Desktop must display key nav links: Services, Trades, Packages, Real Results, About, and primary CTA button 'Get a Free Quote'.",
+    "testing_attributes": "All interactive elements, buttons, links, inputs, selectors, and metric cards MUST have explicit 'data-testid' attributes in kebab-case."
+  },
+
+  "colors": {
+    "theme_mode": "Light mode default with rich high-contrast industrial grounding (slate/stone/charcoal)",
+    "palette": {
+      "background": "#FBFBFA",
+      "surface": "#FFFFFF",
+      "surface_subtle": "#F4F3EF",
+      "surface_dark": "#181E24",
+      "text_primary": "#12171A",
+      "text_secondary": "#495560",
+      "text_muted": "#6E7D8A",
+      "border_default": "#E2E0D8",
+      "border_strong": "#C5C0B3",
+      "primary_action": "#D94814",
+      "primary_action_hover": "#BD3A0C",
+      "primary_action_text": "#FFFFFF",
+      "secondary_action": "#1D3A5F",
+      "secondary_action_hover": "#142A46",
+      "secondary_action_text": "#FFFFFF",
+      "accent_safety": "#E89B10",
+      "status_green": "#167245",
+      "status_green_bg": "#EDF7F1"
+    },
+    "forbidden_colors": ["#7351B7", "electric purple gradients", "neon magenta", "faded gray on light gray text"]
+  },
+
+  "typography": {
+    "heading_font_family": "Chivo, Barlow, sans-serif",
+    "body_font_family": "IBM Plex Sans, -apple-system, sans-serif",
+    "scale": {
+      "h1": "text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900",
+      "h3": "text-xl sm:text-2xl font-bold tracking-tight text-slate-900",
+      "h4": "text-lg sm:text-xl font-bold text-slate-900",
+      "body_lg": "text-lg sm:text-xl font-normal text-slate-700 leading-relaxed",
+      "body": "text-base font-normal text-slate-700 leading-relaxed",
+      "body_sm": "text-sm font-medium text-slate-600",
+      "eyebrow": "text-xs sm:text-sm font-bold uppercase tracking-wider text-amber-700"
+    }
+  },
+
+  "visual_enhancers": {
+    "badge_style": "inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-stone-100 text-stone-800 border border-stone-200",
+    "stat_card": "bg-white border-2 border-stone-200 rounded-xl p-6 shadow-sm hover:border-stone-400 transition-colors",
+    "phone_mockup": "relative rounded-3xl border-4 border-stone-800 bg-stone-900 p-2 shadow-2xl overflow-hidden",
+    "live_demo_frame": "w-full aspect-[9/16] md:aspect-[4/3] rounded-xl border border-stone-300 bg-white shadow-inner overflow-hidden"
+  },
+
+  "navigation_structure": {
+    "header": {
+      "logo": "Veqorix wordmark + geometric heavy hammer/apex icon",
+      "desktop_links": [
+        {"name": "Services", "path": "/services"},
+        {"name": "Trades", "path": "/trades"},
+        {"name": "Packages & Pricing", "path": "/packages"},
+        {"name": "Samples Gallery", "path": "/samples"},
+        {"name": "About", "path": "/about"}
+      ],
+      "actions": [
+        {"type": "phone", "label": "Call: (888) 492-7489", "tel": "+18884927489"},
+        {"type": "button", "label": "Get a Free Quote", "path": "/quote"}
+      ]
+    },
+    "mobile_sticky_bar": {
+      "description": "Fixed bar at viewport bottom on screens < md breakpoint. z-index 50.",
+      "items": [
+        {"label": "Call Now", "sub": "(888) 492-7489", "action": "tel:+18884927489", "icon": "PhoneCall", "testId": "mobile-sticky-call-btn"},
+        {"label": "Free Quote", "sub": "2-min form", "action": "/quote", "icon": "FileText", "testId": "mobile-sticky-quote-btn"}
+      ]
+    }
+  },
+
+  "pages_and_routes": {
+    "/": "Homepage with hero, contractor pain points vs Veqorix solutions, 6 key services preview, 'See it for your trade' 9 interactive demo tabs with interactive iframe previews, 4 transparent pricing tiers, real results stats (66.7K followers, +41.3K new fans, 76M organic impressions, ~78M combined reach), FAQ accordion, final direct CTA",
+    "/services": "Directory of 6 services (Custom Websites, Google Local Maps & SEO, Lead Generation Ads, Review Booster System, Fast Mobile Speed Hosting, Missed-Call Lead Capture) with deep detail cards",
+    "/services/:slug": "Dynamic or individual routes for each of the 6 core services with problem, deliverables checklist, time to launch, and direct quote CTA",
+    "/trades": "Directory of 9 target trades with interactive switchers and direct industry demo previews",
+    "/trades/:tradeSlug": "Dedicated trade page (roofing, hvac, plumbing, electrical, landscaping, painting, masonry, snow removal, pest control) featuring real contractor challenges and embedded live demo iframe preview of a trade-specific site layout",
+    "/packages": "Transparent 4 package tiers (The Starter Rig, Local Heavyweight, Territory Dominator, Custom Growth Build) with complete feature comparison table and 'Get a Free Quote' price selectors",
+    "/samples": "Interactive visual showcase gallery of home-service contractor websites with filter by trade and device preview switch (Mobile view vs Desktop view)",
+    "/about": "The Veqorix mission, why we only serve blue-collar trades, straightforward guarantee, and team with real contractor-friendly bios",
+    "/quote": "Comprehensive interactive multi-step free quote form with trade selector, services needed checkboxes, monthly budget radio, current website input, service cities, and contractor contact info",
+    "/privacy": "Plain-English privacy policy tailored to US/Canada local trade businesses and lead data handling",
+    "/terms": "Clear service agreement terms, ownership rights (you own your website and domain), transparent billing, and zero lock-in contracts",
+    "*": "404 page: 'Looks like you took a wrong turn down the jobsite' with quick links back to Home, Trades, and Quote"
+  },
+
+  "homepage_sections": [
+    {
+      "id": "hero",
+      "heading": "Websites & Leads for Real Trades. No BS. No Tech Jargon.",
+      "subheading": "We build fast, no-nonsense websites and run local lead systems for home service contractors in Canada & the US. You focus on the tools; we keep your phone ringing.",
+      "phone_cta": "Call (888) 492-7489",
+      "quote_cta": "Get a Free Trade Quote",
+      "trust_pills": [
+        "100% Owned By You",
+        "Ready in 7 to 10 Days",
+        "Built for 40+ Owners on Mobile",
+        "No Annual Lock-in Contracts"
+      ]
+    },
+    {
+      "id": "contractor_problem",
+      "eyebrow": "THE CONTRACTOR REALITY",
+      "heading": "Tired of marketing agencies that take your money and talk in riddles?",
+      "bullets": [
+        "Agency websites that look pretty to college kids but confuse a homeowner with a leaky pipe.",
+        "Paying $2,000/month on retainers with zero visibility into how many actual jobs were booked.",
+        "Websites you can't edit, don't own, or break the minute someone looks on an iPhone on LTE."
+      ]
+    },
+    {
+      "id": "six_services_grid",
+      "eyebrow": "WHAT WE DO",
+      "heading": "Six practical tools built to fill your weekly schedule",
+      "services": [
+        {"title": "Custom Fast Contractor Sites", "desc": "Clean, high-speed mobile sites with tap-to-call buttons everywhere and real photos of your trucks and work."},
+        {"title": "Google Maps & Local SEO", "desc": "Show up in the top 3 'Map Pack' when nearby homeowners search 'emergency plumber' or 'roof replacement near me'."},
+        {"title": "Exclusive Homeowner Ad Leads", "desc": "Targeted Google Local Service & Facebook ads that deliver homeowners exclusively to your phone, never shared."},
+        {"title": "5-Star Review Automation", "desc": "Send a fast SMS after finishing a job so happy customers leave a 5-star Google review before you leave the driveway."},
+        {"title": "Missed Call Auto-Text", "desc": "If you are up on a ladder and miss a call, our system automatically texts them back in 5 seconds to hold the lead."},
+        {"title": "Armor-Plate Hosting & Updates", "desc": "Ultra-secure Canadian & US hosting. We handle backups, seasonal rate updates, and photo uploads with a quick text."}
+      ]
+    },
+    {
+      "id": "nine_trades_interactive_preview",
+      "eyebrow": "BUILT FOR YOUR RIG",
+      "heading": "See it live for your trade",
+      "description": "Select your trade below to inspect a live simulated mobile website built for how homeowners actually hire.",
+      "trades": [
+        {"id": "roofing", "name": "Roofing & Siding", "tagline": "Hail, storm damage, and emergency re-roof estimates"},
+        {"id": "hvac", "name": "HVAC & Heat Pumps", "tagline": "No-heat emergencies, seasonal furnace tune-ups & AC installs"},
+        {"id": "plumbing", "name": "Plumbing & Drains", "tagline": "Burst pipes, water heater swaps, and drain scoping"},
+        {"id": "electrical", "name": "Electrical & Panels", "tagline": "200A service upgrades, EV chargers, and residential rewires"},
+        {"id": "landscaping", "name": "Landscaping & Hardscape", "tagline": "Paver patios, weekly mowing, and property cleanup contracts"},
+        {"id": "painting", "name": "Interior & Exterior Painting", "tagline": "Cabinet spraying, whole-house exteriors, and trim work"},
+        {"id": "masonry", "name": "Masonry & Chimneys", "tagline": "Brick repointing, stone foundations, and chimney rebuilds"},
+        {"id": "snow-removal", "name": "Snow & Ice Management", "tagline": "Commercial lot clearing, salt spreading, and seasonal contracts"},
+        {"id": "pest-control", "name": "Pest & Wildlife Control", "tagline": "Rodent exclusion, wasp removal, and preventive protection"}
+      ]
+    },
+    {
+      "id": "real_results_stats",
+      "eyebrow": "REAL PROVEN TRACK RECORD",
+      "heading": "Real homeowner attention. Verifiable reach.",
+      "subheading": "Anonymized composite numbers generated across our home-service contractor network.",
+      "metrics": [
+        {"value": "66.7K+", "label": "Active Local Followers", "sub": "Homeowners following trade community updates"},
+        {"value": "+41.3K", "label": "New Customer Growth", "sub": "Verified new direct inbound homeowner touchpoints"},
+        {"value": "76.4M", "label": "Organic Video Views", "sub": "Short-form jobsite walkthroughs & before/after showcases"},
+        {"value": "~78M", "label": "Total Impressions Served", "sub": "Across Google Maps, Search, and local community feeds"}
+      ]
+    },
+    {
+      "id": "pricing_four_packages",
+      "eyebrow": "TRANSPARENT PRICING",
+      "heading": "Fair pricing for hardworking trade businesses",
+      "subheading": "No hidden fine print. Prices in USD/CAD. Complete ownership.",
+      "packages": [
+        {
+          "name": "The Starter Rig",
+          "price": "$1,450",
+          "cad_price": "$1,950 CAD",
+          "period": "one-time build",
+          "desc": "For solo operators and new trade rigs who need a fast, professional Google-ready website.",
+          "features": ["5-page high-speed mobile website", "Tap-to-call & instant quote form", "Google Business Profile optimization", "Standard on-page SEO setup", "You own 100% of the code & domain"]
+        },
+        {
+          "name": "Local Heavyweight",
+          "price": "$2,650",
+          "cad_price": "$3,550 CAD",
+          "badge": "MOST POPULAR",
+          "period": "one-time build",
+          "desc": "For established 2-5 truck crews ready to dominate their immediate service zip codes.",
+          "features": ["12-page expanded service & city area site", "Missed-call auto text responder", "Google Maps Local 3-Pack sprint", "Before/After photo project gallery", "5-Star review request system", "30-day post-launch warranty"]
+        },
+        {
+          "name": "Territory Dominator",
+          "price": "$1,250/mo",
+          "cad_price": "$1,690 CAD/mo",
+          "period": "turnkey growth system",
+          "desc": "For growing companies that want ongoing Google Local Ads management and constant leads.",
+          "features": ["Everything in Local Heavyweight", "Managed Google Local Services & Search Ads", "Monthly localized landing page expansions", "Review collection automation", "Bi-weekly lead report in plain English", "Priority tech support via direct SMS"]
+        },
+        {
+          "name": "Custom Growth Build",
+          "price": "Custom Quote",
+          "cad_price": "Custom Quote",
+          "period": "multi-location or franchise",
+          "desc": "For multi-crew operators covering multiple counties or regional metros.",
+          "features": ["Multi-location CMS infrastructure", "CRM / Jobber / ServiceTitan booking sync", "Advanced conversion tracking & call recordings", "Dedicated account manager"]
+        }
+      ]
+    },
+    {
+      "id": "faq",
+      "eyebrow": "CLEAR ANSWERS",
+      "heading": "Frequently Asked Questions",
+      "faqs": [
+        {"q": "Do I own my website or are you holding it hostage?", "a": "You own 100% of everything: the domain, the design, the text, and the customer data. If you ever leave us, we hand you full keys. No ransom fees."},
+        {"q": "I am not technical at all. How much work do I have to do?", "a": "About 25 minutes on a phone call. Send us photos of your work, your license/insurance info, and the towns you service. We handle all design, writing, coding, and launch."},
+        {"q": "How fast will my site be ready?", "a": "Starter and Heavyweight sites go live in 7 to 10 business days from the moment we finish our kickoff call."},
+        {"q": "How does the 'Missed-Call Auto-Text' work?", "a": "When a customer calls and you are on a roof or under a sink and can't pick up, our system texts them back in 5 seconds: 'Hey, this is Dave with Apex Roofing. I'm on a jobsite right now. How can I help you?' This keeps them from calling your competitor."}
+      ]
+    }
+  ],
+
+  "image_urls": {
+    "roofing_crew": "https://images.unsplash.com/photo-1587582423116-ec07293f0395?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODh8MHwxfHNlYXJjaHwxfHxjb250cmFjdG9yJTIwY29uc3RydWN0aW9uJTIwcm9vZmluZyUyMHdvcmtlcnxlbnwwfHx8fDE3OTUyODEwMzR8MA&ixlib=rb-4.1.0&q=85",
+    "electrician_panel": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTB8MHwxfHNlYXJjaHwxfHxwbHVtYmVyJTIwZWxlY3RyaWNpYW4lMjBodmFjJTIwdGVjaG5pY2lhbnxlbnwwfHx8fDE3OTUyODEwMzR8MA&ixlib=rb-4.1.0&q=85",
+    "hvac_rooftop": "https://images.pexels.com/photos/5463581/pexels-photo-5463581.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "landscaping_lawn": "https://images.unsplash.com/photo-1779636489744-c7243917ace0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODd8MHwxfHNlYXJjaHwxfHxsYW5kc2NhcGluZyUyMHBhaW50ZXIlMjBob21lJTIwc2VydmljZXxlbnwwfHx8fDE3OTUyODEwMzV8MA&ixlib=rb-4.1.0&q=85",
+    "plumbing_pipe": "https://images.unsplash.com/photo-1676210133055-eab6ef033ce3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTB8MHwxfHNlYXJjaHwyfHxwbHVtYmVyJTIwZWxlY3RyaWNpYW4lMjBodmFjJTIwdGVjaG5pY2lhbnxlbnwwfHx8fDE3OTUyODEwMzR8MA&ixlib=rb-4.1.0&q=85",
+    "painting_wall": "https://images.pexels.com/photos/5691471/pexels-photo-5691471.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+  },
+
+  "quote_form_spec": {
+    "test_id": "trade-quote-form",
+    "fields": [
+      {"name": "company_name", "label": "Your Business Name", "type": "text", "required": true},
+      {"name": "owner_name", "label": "Owner / Contact Name", "type": "text", "required": true},
+      {"name": "phone", "label": "Best Phone / Cell (for SMS updates)", "type": "tel", "required": true},
+      {"name": "email", "label": "Email Address", "type": "email", "required": true},
+      {"name": "trade", "label": "Primary Trade", "type": "select", "options": ["Roofing & Siding", "HVAC / Heating & Cooling", "Plumbing & Drains", "Electrical", "Landscaping & Tree Service", "Painting (Interior/Exterior)", "Masonry & Chimney", "Snow Removal & Ice", "Pest Control & Wildlife", "General Remodeling / Other"]},
+      {"name": "service_locations", "label": "Primary City / Service Radius (e.g. Calgary, AB or Austin, TX)", "type": "text", "required": true},
+      {"name": "current_website", "label": "Current Website (or write 'None')", "type": "text", "required": false},
+      {"name": "services_wanted", "label": "What do you need most?", "type": "checkbox_group", "options": [
+        "Brand New Fast Mobile Website",
+        "More Calls from Google Maps",
+        "Exclusive Leads from Ads",
+        "Missed Call Auto-Text System",
+        "Fix / Redo an Existing Slow Website"
+      ]},
+      {"name": "monthly_lead_budget", "label": "Approximate monthly growth / marketing budget", "type": "radio_group", "options": [
+        "Under $1,500 (starter website only)",
+        "$1,500 - $3,000 (site + local setup)",
+        "$3,000 - $6,000 (full lead generation)",
+        "$6,000+ (multi-crew domination)"
+      ]},
+      {"name": "notes", "label": "Tell us about your biggest bottleneck right now", "type": "textarea", "required": false}
+    ]
+  }
+}

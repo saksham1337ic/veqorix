@@ -4,82 +4,58 @@
 
 body {
     margin: 0;
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-        sans-serif;
+    font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: #FBFBFA;
+    color: #12171A;
+    font-size: 17px;
 }
 
-code {
-    font-family:
-        source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
+h1, h2, h3, h4, .font-display { font-family: "Chivo", "IBM Plex Sans", sans-serif; }
+::selection { background: #E89B10; color: #12171A; }
 
 @layer base {
     :root {
-        --background: 0 0% 100%;
-        --foreground: 0 0% 3.9%;
+        --background: 60 11% 98%;
+        --foreground: 200 18% 9%;
         --card: 0 0% 100%;
-        --card-foreground: 0 0% 3.9%;
+        --card-foreground: 200 18% 9%;
         --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 3.9%;
-        --primary: 0 0% 9%;
-        --primary-foreground: 0 0% 98%;
-        --secondary: 0 0% 96.1%;
-        --secondary-foreground: 0 0% 9%;
-        --muted: 0 0% 96.1%;
-        --muted-foreground: 0 0% 45.1%;
-        --accent: 0 0% 96.1%;
-        --accent-foreground: 0 0% 9%;
-        --destructive: 0 84.2% 60.2%;
+        --popover-foreground: 200 18% 9%;
+        --primary: 16 83% 46%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 45 14% 95%;
+        --secondary-foreground: 200 18% 9%;
+        --muted: 45 14% 95%;
+        --muted-foreground: 208 13% 33%;
+        --accent: 45 14% 95%;
+        --accent-foreground: 200 18% 9%;
+        --destructive: 0 72% 45%;
         --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 89.8%;
-        --input: 0 0% 89.8%;
-        --ring: 0 0% 3.9%;
-        --chart-1: 12 76% 61%;
-        --chart-2: 173 58% 39%;
-        --chart-3: 197 37% 24%;
-        --chart-4: 43 74% 66%;
-        --chart-5: 27 87% 67%;
+        --border: 46 14% 87%;
+        --input: 43 12% 74%;
+        --ring: 16 83% 46%;
         --radius: 0.5rem;
-    }
-    .dark {
-        --background: 0 0% 3.9%;
-        --foreground: 0 0% 98%;
-        --card: 0 0% 3.9%;
-        --card-foreground: 0 0% 98%;
-        --popover: 0 0% 3.9%;
-        --popover-foreground: 0 0% 98%;
-        --primary: 0 0% 98%;
-        --primary-foreground: 0 0% 9%;
-        --secondary: 0 0% 14.9%;
-        --secondary-foreground: 0 0% 98%;
-        --muted: 0 0% 14.9%;
-        --muted-foreground: 0 0% 63.9%;
-        --accent: 0 0% 14.9%;
-        --accent-foreground: 0 0% 98%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 14.9%;
-        --input: 0 0% 14.9%;
-        --ring: 0 0% 83.1%;
-        --chart-1: 220 70% 50%;
-        --chart-2: 160 60% 45%;
-        --chart-3: 30 80% 55%;
-        --chart-4: 280 65% 60%;
-        --chart-5: 340 75% 55%;
     }
 }
 
 @layer base {
-    * {
-        @apply border-border;
-    }
-    body {
-        @apply bg-background text-foreground;
-    }
+    * { @apply border-border; }
+    body { @apply bg-background text-foreground; }
+}
+
+@layer components {
+    .container-x { @apply mx-auto w-full max-w-7xl px-5 sm:px-8; }
+    .eyebrow { @apply text-sm font-bold uppercase tracking-wider text-[#B45309]; }
+    .btn-base { @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg px-5 text-base font-bold transition-[background-color,color,border-color,transform] duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#E89B10]/50; }
+    .btn-primary { @apply btn-base bg-[#D94814] text-white hover:bg-[#BD3A0C]; }
+    .btn-secondary { @apply btn-base bg-[#1D3A5F] text-white hover:bg-[#142A46]; }
+    .btn-outline { @apply btn-base border-2 border-[#C5C0B3] bg-white text-[#12171A] hover:border-[#12171A]; }
+    .btn-outline-light { @apply btn-base border-2 border-white/40 text-white hover:border-white hover:bg-white/10; }
+    .btn-lg { @apply min-h-[56px] px-7 text-lg; }
+    .field-label { @apply mb-2 block text-base font-semibold text-[#12171A]; }
+    .field-input { @apply block min-h-[52px] w-full rounded-lg border-2 border-[#C5C0B3] bg-white px-4 text-base text-[#12171A] transition-colors focus:border-[#1D3A5F] focus:outline-none focus:ring-4 focus:ring-[#1D3A5F]/15; }
 }
 
 @layer base {

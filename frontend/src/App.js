@@ -1,56 +1,38 @@
-import { useEffect } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-import { HOME } from "@/constants/testIds";
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    // The marker attribute below lets the platform probe detect the stock splash — remove it with this page
-    <div data-emergent-splash>
-      <header className="App-header">
-        <a
-          data-testid={HOME.emergentLink}
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "@/components/ui/sonner";
+import { Layout } from "@/components/Layout";
+import Home from "@/pages/Home";
+import ServicePage from "@/pages/ServicePage";
+import IndustryPage from "@/pages/IndustryPage";
+import PackagesPage from "@/pages/PackagesPage";
+import SamplesPage from "@/pages/SamplesPage";
+import AboutPage from "@/pages/AboutPage";
+import QuotePage from "@/pages/QuotePage";
+import { PrivacyPage, TermsPage } from "@/pages/LegalPages";
+import NotFound from "@/pages/NotFound";
+import { SERVICES } from "@/data/services";
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<Home />} />
+          {SERVICES.map((s) => <Route key={s.slug} path={s.slug} element={<ServicePage slug={s.slug} />} />)}
+          <Route path="industries/:slug" element={<IndustryPage />} />
+          <Route path="packages" element={<PackagesPage />} />
+          <Route path="samples" element={<SamplesPage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="quote" element={<QuotePage />} />
+          <Route path="contact" element={<Navigate to="/quote" replace />} />
+          <Route path="privacy" element={<PrivacyPage />} />
+          <Route path="terms" element={<TermsPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+      <Toaster position="top-center" />
+    </BrowserRouter>
   );
 }
 
