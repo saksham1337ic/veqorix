@@ -38,7 +38,7 @@ export default function ServicePage({ slug }) {
           <div className="rounded-xl border-2 border-[#E2E0D8] bg-white p-6" data-testid="service-pricing">
             <Eyebrow>Pricing</Eyebrow>
             <Link to="/quote" className="mt-3 block font-display text-3xl font-black text-[#D94814] underline underline-offset-4" data-testid="service-price-link">{priceLabel(null)}</Link>
-            <p className="mt-2 text-[#495560]">Pricing depends on your trade and area. Tell us about your business and we'll send a clear price.</p>
+            <p className="mt-2 text-[#495560]">Pricing depends on your goals and the work involved. Tell us about your business and we'll send a clear price.</p>
           </div>
         </div>
       </section>

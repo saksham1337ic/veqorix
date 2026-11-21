@@ -29,7 +29,7 @@ const ThankYou = ({ name }) => (
   <div className="rounded-xl border-2 border-[#167245] bg-[#EDF7F1] p-8" data-testid="quote-thank-you">
     <CheckCircle2 className="h-12 w-12 text-[#167245]" />
     <h2 className="mt-4 font-display text-3xl font-black">Thanks{name ? `, ${name.split(" ")[0]}` : ""}. We got it.</h2>
-    <p className="mt-3 text-lg text-[#12171A]">We'll look over your details and get back to you, usually within one business day. If it's urgent, email <a href={`mailto:${SITE.email}`} className="font-semibold underline">{SITE.email}</a>.</p>
+    <p className="mt-3 text-lg text-[#12171A]">We'll look over your details and get back to you, usually within one business day. If it's urgent, email <a href={`mailto:${SITE.email}`} className="font-semibold underline" data-testid="thank-you-email-link">{SITE.email}</a>.</p>
     <div className="mt-6 flex flex-col gap-3 sm:flex-row">
       <Link to="/samples" className="btn-outline" data-testid="thank-you-samples-btn">Browse sample sites</Link>
       <Link to="/" className="btn-outline" data-testid="thank-you-home-btn">Back to home</Link>
@@ -39,25 +39,32 @@ const ThankYou = ({ name }) => (
 
 export default function QuotePage() {
   const [params] = useSearchParams();
-  const initialTrade = TRADES.some((t) => t.slug === params.get("trade")) ? params.get("trade") : "";
+  const initialTrade = TRADES.find((t) => t.slug === params.get("trade"))?.name || "";
   const pkg = PACKAGES.find((p) => p.id === params.get("package"));
   const [f, setF] = useState({ name: "", business_name: "", trade: initialTrade, city: "", country: "", website: "", needs: [], contact_method: "phone", phone: "", email: "", message: pkg ? `I'm interested in the ${pkg.name} package.` : "", company_fax: "" });
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
+  const [error, setError] = useState("");
   const set = (k) => (e) => setF((s) => ({ ...s, [k]: e.target.value }));
   const toggleNeed = (v) => setF((s) => ({ ...s, needs: s.needs.includes(v) ? s.needs.filter((n) => n !== v) : [...s.needs, v] }));
   const phoneRequired = f.contact_method !== "email";
 
   const submit = async (e) => {
     e.preventDefault();
+    if (busy) return;
     setBusy(true);
+    setError("");
     try {
       await axios.post(`${API}/quotes`, f);
       setDone(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       const d = err.response?.data?.detail;
-      toast.error(typeof d === "string" ? d : "Please check the form and try again.");
+      const message = err.response?.status === 422
+        ? (typeof d === "string" ? d : "Please check your business and contact details, then try again.")
+        : `We couldn't save your request. Please try again, or email ${SITE.email}.`;
+      setError(message);
+      toast.error(message);
     } finally {
       setBusy(false);
     }
@@ -65,7 +72,7 @@ export default function QuotePage() {
 
   return (
     <>
-      <Seo title="Get a Free Quote | Veqorix" description="Tell us about your trade business and get a free quote for a website, Google Ads, social media or local SEO." path="/quote" />
+      <Seo title="Get a Free Quote | Veqorix" description="Tell us about your business and goals. Get a free quote for websites, Google Ads, social media, eligible local SEO or AI-assisted customer communication." path="/quote" />
       <section className="py-12 sm:py-16">
         <div className="container-x grid gap-12 lg:grid-cols-[1fr_1.6fr]">
           <div>
@@ -79,12 +86,8 @@ export default function QuotePage() {
                 <div className="grid gap-5 sm:grid-cols-2">
                   <Field id="name" label="Your name"><input id="name" required maxLength={120} autoComplete="name" className="field-input" value={f.name} onChange={set("name")} data-testid="quote-name-input" /></Field>
                   <Field id="business_name" label="Business name"><input id="business_name" required maxLength={150} autoComplete="organization" className="field-input" value={f.business_name} onChange={set("business_name")} data-testid="quote-business-input" /></Field>
-                  <Field id="trade" label="Trade">
-                    <select id="trade" required className="field-input" value={f.trade} onChange={set("trade")} data-testid="quote-trade-select">
-                      <option value="">Choose your trade</option>
-                      {TRADES.map((t) => <option key={t.slug} value={t.slug}>{t.name}</option>)}
-                      <option value="other">Other</option>
-                    </select>
+                  <Field id="trade" label="Business type / industry">
+                    <input id="trade" required maxLength={150} className="field-input" value={f.trade} onChange={set("trade")} placeholder="Describe your business" data-testid="quote-business-type-input" />
                   </Field>
                   <Field id="city" label="City / region"><input id="city" required maxLength={150} placeholder="e.g. Calgary, AB" className="field-input" value={f.city} onChange={set("city")} data-testid="quote-city-input" /></Field>
                   <Field id="country" label="Country">
@@ -110,17 +113,18 @@ export default function QuotePage() {
                   <Field id="phone" label="Phone" optional={!phoneRequired}><input id="phone" type="tel" required={phoneRequired} maxLength={40} autoComplete="tel" className="field-input" value={f.phone} onChange={set("phone")} data-testid="quote-phone-input" /></Field>
                   <Field id="email" label="Email"><input id="email" type="email" required maxLength={200} autoComplete="email" className="field-input" value={f.email} onChange={set("email")} data-testid="quote-email-input" /></Field>
                 </div>
-                <Field id="message" label="Message" optional>
-                  <textarea id="message" rows={4} maxLength={5000} placeholder="Anything we should know? Services, towns you cover, goals..." className="field-input py-3" value={f.message} onChange={set("message")} data-testid="quote-message-input" />
+                <Field id="message" label="Project notes" optional>
+                  <textarea id="message" rows={4} maxLength={5000} placeholder="What do you offer, who are your customers, and what would you like to improve?" className="field-input py-3" value={f.message} onChange={set("message")} data-testid="quote-message-input" />
                 </Field>
                 <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
                   <label htmlFor="company_fax">Leave this field empty</label>
                   <input id="company_fax" tabIndex={-1} autoComplete="off" value={f.company_fax} onChange={set("company_fax")} data-testid="quote-honeypot-input" />
                 </div>
+                {error && <p role="alert" className="rounded-lg border border-red-300 bg-red-50 p-4 text-red-900" data-testid="quote-error">{error}</p>}
                 <button type="submit" disabled={busy} className="btn-primary btn-lg w-full disabled:opacity-70" data-testid="quote-submit-btn">
                   {busy ? <><Loader2 className="h-5 w-5 animate-spin" /> Sending...</> : "Send my quote request"}
                 </button>
-                <p className="text-sm text-[#6E7D8A]">We only use your details to reply to you. See our <Link to="/privacy" className="underline">privacy policy</Link>.</p>
+                <p className="text-sm text-[#6E7D8A]">We only use your details to reply to you. See our <Link to="/privacy" className="underline" data-testid="quote-privacy-link">privacy policy</Link>.</p>
               </form>
             )}
           </div>

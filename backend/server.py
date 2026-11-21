@@ -40,17 +40,11 @@ async def ensure_indexes() -> None:
                 logger.error("ensure_indexes(%s.%s): %s", collection, model.document["name"], exc)
 
 
-TRADES = {
-    "roofing-masonry": "Roofing & Masonry", "hvac": "HVAC", "plumbing": "Plumbing", "electrical": "Electrical",
-    "landscaping": "Landscaping", "snow-removal": "Snow Removal", "cleaning": "Cleaning", "painting": "Painting",
-    "pest-control": "Pest Control", "other": "Other",
-}
 NEEDS = {
     "website": "Website", "google-ads": "Google Ads", "social-media": "Social media", "local-seo": "Local SEO",
     "ai-receptionist": "AI receptionist", "ai-chat-assistant": "AI chat assistant", "not-sure": "Not sure",
 }
 
-Trade = Literal[tuple(TRADES)]  # type: ignore[valid-type]
 Need = Literal[tuple(NEEDS)]  # type: ignore[valid-type]
 
 
@@ -58,7 +52,7 @@ class QuoteIn(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True, extra="ignore")
     name: str = Field(min_length=1, max_length=120)
     business_name: str = Field(min_length=1, max_length=150)
-    trade: Trade
+    trade: str = Field(min_length=1, max_length=150)
     city: str = Field(min_length=1, max_length=150)
     country: Literal["Canada", "USA", "Other"]
     website: Optional[str] = Field(default=None, max_length=300)
@@ -84,13 +78,13 @@ class QuoteOut(BaseModel):
 def build_email(q: QuoteIn, quote_id: str) -> EmailMessage:
     needs = ", ".join(NEEDS[n] for n in q.needs) or "-"
     msg = EmailMessage()
-    msg["Subject"] = f"New quote request: {q.business_name} ({TRADES[q.trade]}, {q.city})"
+    msg["Subject"] = f"New quote request: {' '.join(q.business_name.splitlines())}"
     msg["From"] = f"Veqorix Website <{os.environ['MAIL_FROM']}>"
     msg["To"] = os.environ["QUOTE_NOTIFY_TO"]
     msg["Reply-To"] = str(q.email)
     msg.set_content(
         f"New quote request from veqorix.com\n\n"
-        f"Name: {q.name}\nBusiness: {q.business_name}\nTrade: {TRADES[q.trade]}\n"
+        f"Name: {q.name}\nBusiness: {q.business_name}\nBusiness type / industry: {q.trade}\n"
         f"City/Region: {q.city}\nCountry: {q.country}\nCurrent website: {q.website or '-'}\n"
         f"Needs: {needs}\nBest way to reach: {q.contact_method}\n"
         f"Phone: {q.phone or '-'}\nEmail: {q.email}\n\nMessage:\n{q.message or '-'}\n\n"
@@ -144,7 +138,10 @@ async def create_quote(q: QuoteIn):
         except Exception as exc:
             status = "failed"
             logger.error("Quote %s email failed: %s", quote_id, type(exc).__name__)
-    await db.quotes.update_one({"id": quote_id}, {"$set": {"email_status": status}})
+    try:
+        await db.quotes.update_one({"id": quote_id}, {"$set": {"email_status": status}})
+    except Exception as exc:
+        logger.error("Quote %s saved; email status update failed: %s", quote_id, type(exc).__name__)
     return ok
 
 

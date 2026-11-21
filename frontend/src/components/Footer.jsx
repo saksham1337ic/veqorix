@@ -16,14 +16,14 @@ export const Footer = () => (
     <div className="container-x grid gap-12 md:grid-cols-2 lg:grid-cols-4">
       <div>
         <Logo light />
-        <p className="mt-4 max-w-xs text-stone-300">Websites and customers for home-service businesses in Canada and the USA.</p>
+        <p className="mt-4 max-w-xs text-stone-300" data-testid="footer-positioning">Websites, marketing and AI-assisted customer communication for small businesses in Canada and the USA.</p>
         <a href={`mailto:${SITE.email}`} className="mt-4 block font-semibold text-white hover:text-[#E89B10]" data-testid="footer-email">{SITE.email}</a>
-        <a href={`tel:${SITE.phoneTel}`} className="mt-1 block font-semibold text-white hover:text-[#E89B10]" data-testid="footer-phone">{SITE.phoneDisplay}</a>
+        {SITE.phoneIsPlaceholder ? <p className="mt-1 text-sm text-stone-300" data-testid="footer-phone-unavailable">Call — number coming soon</p> : <a href={`tel:${SITE.phoneTel}`} className="mt-1 block font-semibold text-white hover:text-[#E89B10]" data-testid="footer-phone">{SITE.phoneDisplay}</a>}
       </div>
       <Col title="Services">
         {SERVICES.map((s) => <li key={s.slug}><Link to={`/${s.slug}`} className="hover:text-white" data-testid={`footer-service-${s.slug}`}>{s.name}</Link></li>)}
       </Col>
-      <Col title="Trades">
+      <Col title="Contractor examples">
         {TRADES.map((t) => <li key={t.slug}><Link to={`/industries/${t.slug}`} className="hover:text-white" data-testid={`footer-trade-${t.slug}`}>{t.name}</Link></li>)}
       </Col>
       <Col title="Company">

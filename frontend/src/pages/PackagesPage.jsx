@@ -5,13 +5,13 @@ import { PackageGrid, ComparisonTable } from "@/components/Packages";
 export default function PackagesPage() {
   return (
     <>
-      <Seo title="Website & Marketing Packages for Contractors | Veqorix"
-        description="Compare Veqorix packages for trade businesses: Website, Get Found, Get Calls and Grow. Get a free quote for your business." path="/packages" />
+      <Seo title="Website & Marketing Packages for Small Businesses | Veqorix"
+        description="Compare Website, Get Found, Get Calls and Grow. Website and marketing packages for small businesses, tailored to your goals. Get a free quote." path="/packages" />
       <section className="border-b border-[#E2E0D8] py-14 sm:py-20">
         <div className="container-x max-w-3xl">
           <p className="eyebrow rise">Packages</p>
           <h1 className="rise rise-1 mt-3 font-display text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">Four packages. One clear quote.</h1>
-          <p className="rise rise-2 mt-6 text-lg leading-relaxed text-[#495560] sm:text-xl">Start with a website, or add Google, ads and social media when you're ready. Every business is different, so we send you a clear price after a quick look at yours.</p>
+          <p className="rise rise-2 mt-6 text-lg leading-relaxed text-[#495560] sm:text-xl" data-testid="packages-intro">Choose a starting point that fits your goals: a useful website, local visibility, more relevant calls, or ongoing marketing. Get Found suits eligible local businesses; Get Calls suits businesses where phone inquiries matter. You don't need every service. We'll agree on the right scope and a clear price.</p>
         </div>
       </section>
       <section className="py-16"><div className="container-x"><PackageGrid /></div></section>

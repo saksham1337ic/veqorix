@@ -1,60 +1,103 @@
-# Veqorix.com — Main Marketing Site
+# Veqorix — Broader Small-Business Positioning
 
-A plain-spoken marketing site for Veqorix, which builds websites and gets customers for small home-service businesses in Canada and the USA.
-It explains the six services and four packages, shows the 9 live trade demo sites and the real anonymized campaign results, and turns visitors into quote requests.
+Veqorix is a marketing website offering websites, digital marketing, and AI-assisted customer communication to small businesses across industries.
+It explains six services and four packages, shows clearly labeled examples and supplied campaign results, and helps owners request a tailored quote without needing technical knowledge.
 
 ## Who it's for
-- Busy owner-operators of small trade businesses (roofing, masonry, HVAC, plumbing, electrical, landscaping, snow removal, cleaning, painting, pest control). They're not technical and mostly browse on a phone.
-- The Veqorix owner, who gets every quote request by email.
+
+- Small-business owners across industries in the USA and Canada, including both local and online businesses.
+- Non-technical owners who need a stronger online presence, more relevant inquiries, or help handling customer communication.
+- Home-service contractors remain welcome, but are one audience rather than the definition of the entire business.
+- The Veqorix owner, who receives quote requests and follows up directly.
 
 ## Core features and experience
-- **Homepage**: hero, the problem, what we do (all 6 services, with Websites, Google Ads and Social Media first), "See it for your trade" (9 demo cards), how it works, packages, why Veqorix, results, FAQ and a final call to action.
-- **6 service pages** (Websites, Google Ads, Social Media, Local SEO / Google Business Profile, AI Receptionist, AI Chat Assistant). Each has a plain-language hero, what you get, how it works, who it's for, pricing ("Get a free quote"), 3–4 FAQs and a call to action.
-- **9 industry pages** (`/industries/[trade]`). Each has a trade-specific headline, 2–3 pain points, what that trade's site includes, a live embedded preview of that trade's demo with an "Open live demo" button, the four packages and a call to action that pre-fills the trade on the quote form.
-- **Packages page**: Website, Get Found, Get Calls and Grow side by side, plus the feature comparison table from the brief. Every price reads "Get a free quote" and links to the form. All prices live in one data file and are empty for now, so a real number can go in later without editing page copy.
-- **Samples page**: all 9 demos in a gallery with live embedded previews, trade names and "See live demo" buttons that open the real site.
-- **Results section**: the real, anonymized numbers from the brief, used exactly as written (66.7K followers, +41.3K in 5 months, 20+ creators / 76M views, ~78M total views, the multi-channel dealership strategy, ongoing Meta and Google Ads management). No client names, logos or handles.
-- **"What clients say"**: a clearly marked placeholder ("PLACEHOLDER — add a real testimonial"), kept separate from Results.
-- **About page**: who we are and how we work (remote team, one point of contact, fast communication), with a placeholder for team photos and names.
-- **Quote form** (`/quote`) with all the fields from the brief. It has a hidden anti-spam field, pre-fills the trade from `?trade=slug`, and shows a thank-you message after sending. Each request is saved and emailed to contact@veqorix.com from your Hostinger mailbox. `/contact` redirects here.
-- **Always-visible mobile bar** with "Call" and "Get a free quote". The call button uses a placeholder number until you supply the real one, which goes in one place.
-- **Privacy and Terms** pages marked "TEMPLATE — review before publishing", plus a friendly 404 page.
-- **Custom Veqorix logo** (wordmark and icon) that matches the brand, also used as the favicon and social-share image.
-- **Search basics**: a title and description for each page aimed at searches like "website for HVAC company", plus share tags, sitemap.xml, robots.txt, canonical links and Organization info with no address or reviews.
+
+### Services first, industries second
+
+The main website will lead with business needs rather than a list of trades. Broad positioning will be consistent across the homepage, navigation, service pages, packages, about page, frequently asked questions, quote page, and search titles and descriptions.
+
+The existing six services remain, with Websites, Google Ads, and Social Media presented first:
+
+1. **Websites:** clear, mobile-friendly websites shaped around the business and its customer actions.
+2. **Google Ads:** campaigns matched to the business's audience, offering, and goals, rather than assuming every campaign targets nearby homeowners.
+3. **Social Media:** content and ongoing management relevant to the business, not only photos from contractor jobs.
+4. **Local SEO & Google Business Profile:** explicitly suitable for eligible businesses serving local customers, not a requirement for every business.
+5. **AI Receptionist:** help answering calls, gathering inquiry details, and supporting bookings where appropriate.
+6. **AI Chat Assistant:** help answering website visitors' questions and collecting inquiries.
+
+Each service page retains its explanation, inclusions, process, audience guidance, FAQs, and quote invitation. Calls and quote requests remain useful outcomes, but will not be presented as every business's only goal. No guaranteed rankings, revenue, or lead volumes will be added.
+
+These are services offered by Veqorix. This revision does not build client advertising systems, telephone assistants, scheduling integrations, or an operational chatbot on the Veqorix website.
+
+### Homepage and existing work
+
+- Retain the homepage's introduction, business problems, services, process, packages, reasons to choose Veqorix, results, FAQs, and quote invitations. Rewrite trade-exclusive language for the broader audience.
+- Reframe “See it for your trade” as a showcase of example websites rather than the entry point for all visitors.
+- Preserve all nine existing contractor industry pages and their addresses. Their headlines, pain points, website inclusions, and quote invitations remain trade-specific.
+- Preserve the nine live demo previews and links to open the demos. Use screenshot alternatives when embedding is unavailable.
+- Keep Samples accessible without requiring visitors to select a trade first. Identify the examples honestly as contractor demos, not a complete list of businesses Veqorix serves.
+- Distinguish demonstration sites from client work. Do not invent examples, clients, testimonials, or results for other industries.
+- Retain the anonymized results supplied in the brief without changing their meaning: 66.7K followers, +41.3K in five months, 20+ creators / 76M views, approximately 78M total views, the dealership strategy, and ongoing advertising management. Keep their original campaign context; do not relabel them as contractor results or publish client names, logos, or handles.
+
+### Packages and supporting pages
+
+- Retain Website, Get Found, Get Calls, and Grow, including their feature comparison. Explain which goals each suits; local-search and call-focused packages remain options rather than the assumed path for everyone.
+- Keep “Get a free quote” in place of prices until approved amounts are supplied.
+- Retain the About page's remote-team approach, single point of contact, and communication expectations.
+- Keep testimonial and team-photo placeholders clearly labeled and separate from supplied results.
+- Preserve the Veqorix logo, favicon, social-sharing identity, and persistent mobile quote access. Retain the Call option without making an unprovided phone number look real.
+- Keep the contact-to-quote redirect, friendly not-found page, and Privacy and Terms pages labeled as templates requiring review before publishing.
+- Retain page-specific search descriptions, sharing information, canonical page addresses, sitemap, and organization information. General pages target small-business services; industry pages retain relevant trade-specific search language. Do not invent an address or review ratings.
+
+### Inclusive quote requests
+
+- Replace the trade-only selection with an editable **Business type / industry** text field. Visitors can describe their business without choosing an unrelated trade or being relegated to “Other.”
+- Preserve business and contact details, location, current website, service interests, preferred contact method, optional project notes, and spam protection.
+- Preserve all service choices and the “Not sure” option.
+- Industry-page links may prefill the business type; package links retain the selected package context. Visitors can change those details.
+- Use neutral prompts about the business, customers, and goals rather than assuming job sites or service towns.
+- Save submitted requests privately and retain Hostinger email notifications to `contact@veqorix.com`, sent from that mailbox. Replies should go to the visitor. The public contact address remains `hello@veqorix.com`.
+- Confirm receipt only after a request has been saved. If saving fails, show a clear retry message. Do not claim an email was delivered merely because the request was saved.
+- Email notifications are not currently active because the mailbox password has not been supplied. The site can be reviewed with saved requests, but working owner notifications remain a requirement before public lead collection. The credential must be provided securely, and the Hostinger mailbox and domain email settings must support delivery.
 
 ## User flow
-1. A trade owner lands on the homepage or an industry page from search or a cold email.
-2. They scroll through the services, look at their trade's live demo, check packages and see the results.
-3. They tap "Get a free quote" (always visible on mobile), fill in the form and see a thank-you message.
-4. Veqorix gets an email with all the details and replies to the owner directly.
+
+1. A visitor lands on the homepage and understands that Veqorix works with small businesses across industries. Existing trade-specific links still open the relevant industry pages.
+2. The visitor explores a service or package based on the help needed, without selecting an industry first.
+3. The visitor can browse contractor demos as website examples and read supplied results in their original context.
+4. The visitor requests a quote, describes the business, selects services or “Not sure,” and supplies contact details.
+5. A saved request receives a clear confirmation. Once email setup is complete, the owner receives the notification and can reply directly.
 
 ## UI/UX feel
-- Friendly, direct, local and confident, like a helpful contractor rather than a tech company. No emoji and no hype words.
-- Large readable text, high contrast and big tap targets, made for a 40-something owner on a phone.
-- Short sections, concrete wording and clear calls to action on every screen.
+
+Preserve the existing brand and visual direction rather than undertaking a redesign. Use friendly, direct English, clear headings, strong contrast, large readable text, large tap targets, and straightforward mobile navigation. Avoid jargon, hype, and decorative emoji.
+
+The homepage will emphasize services and business outcomes. Contractor examples will support that message without dominating it. Avoid both trade-exclusive language and vague claims that Veqorix does everything for everyone.
 
 ## Implementation phases
-**Phase 1 — MVP (built now)**
-- Every page in the sitemap: home, 6 services, 9 industries, packages, samples, about, quote, contact redirect, privacy, terms and 404.
-- Working quote form with email to contact@veqorix.com, the logo, the mobile call/quote bar, the single price source and the search basics above.
 
-**Phase 2**
-- Add the real prices, phone number, testimonials and team photos as you supply them.
-- Speed and accessibility tuning toward a 90+ mobile Lighthouse score, plus pre-rendered pages so search engines read each page's text directly.
-- Connect veqorix.com through Cloudflare DNS.
+### Phase 1 — MVP positioning correction: built now
 
-**Phase 3**
-- Website visit and quote-request tracking (for example, Google Analytics conversions).
-- An AI chat assistant on veqorix.com itself, to show off that service.
-- A blog or trade guides for local SEO content.
+Broaden the main website's messaging and search descriptions, retain the six services and four packages, reposition contractor examples, and make quote requests inclusive of any business type. Preserve all existing pages, demo previews, supplied results, branding, mobile quote access, and saved-request functionality. Retain the required Hostinger notification flow with the credential dependency stated above.
+
+No new industry pages, demo sites, services, or large visual redesign are included.
+
+### Phase 2 — Credibility and polish: future work
+
+Add approved prices, a real phone number, genuine testimonials, and team photos when supplied. Improve mobile speed and accessibility toward the existing 90+ Lighthouse goal, and make each public page's content directly readable by search engines. A performance score is a target, not a guarantee. Connect `veqorix.com` through the existing Cloudflare domain setup.
+
+### Phase 3 — Ongoing growth: future work
+
+Add website-visit and quote-request tracking, an AI chat assistant on Veqorix itself, and a blog or business guides reflecting the broader audience. These remain later projects and are not activated as part of this revision.
 
 ## Assumptions
-- Quote emails go to contact@veqorix.com, sent from that same Hostinger mailbox. Replying to an email goes straight to the visitor. You will enter the mailbox password, or an app password, in a secure prompt during the build. hello@veqorix.com stays the email shown publicly on the site, as the brief says.
-- No private leads page or login. Requests are emailed and also kept on file as a backup.
-- The phone number is a clearly marked placeholder until you supply it.
-- Demo previews are live embeds. If a demo site refuses to be embedded, or the embed won't load, that card falls back to a screenshot and still has the "See live demo" button.
-- A logo is designed for Veqorix. You can swap it out if you have your own later.
-- The feature comparison table follows the suggested matrix in the brief.
-- Industry pain points, service FAQs and other page copy are written fresh in the brand voice. Nothing invents statistics, reviews, ratings or client names, and nothing mentions Sinnovation, DMARK or other outside brands.
-- US/Canadian English throughout.
-- The site is served from Emergent hosting. The exact DNS records for Cloudflare are confirmed at go-live, and the demo sites stay on Vercel untouched.
+
+- The approved audience is small businesses across industries; the existing USA-and-Canada geographic focus and US/Canadian English remain unchanged.
+- This is a positioning and inquiry-flow correction, not a change to Veqorix's service inventory or a claim of proven expertise in every sector.
+- Existing branding, page addresses, package names, comparisons, and demo assets remain in use. The external demo sites themselves will not be changed.
+- Contractor pages retain useful trade-specific language; general pages no longer frame contractors as the exclusive audience.
+- A free-text business-type field is preferable to introducing another restrictive industry list.
+- Broadening the audience does not add online stores, payments, customer accounts, a private leads dashboard, or other unrequested capabilities.
+- Missing prices and assets will not be replaced with invented facts. Placeholder contact details will not be presented as working contact information.
+- Existing quote records remain intact. Quote notifications remain required, but no email-delivery claim will be made until the missing mailbox credential is supplied and delivery works.
+- Only Phase 1 is included in the immediate build; Phases 2 and 3 preserve the existing future scope.

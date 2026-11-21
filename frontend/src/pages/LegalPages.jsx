@@ -23,9 +23,9 @@ const Legal = ({ title, path, sections }) => (
 
 export const PrivacyPage = () => (
   <Legal title="Privacy Policy" path="/privacy" sections={[
-    ["What we collect", "When you fill in our quote form, we collect the details you give us, such as your name, business name, trade, location, phone number, email and message."],
+    ["What we collect", "When you fill in our quote form, we collect the details you give us, such as your name, business name, business type / industry, location, phone number, email and message."],
     ["How we use it", "We use your details to reply to your request, send you a quote and talk with you about our services. We do not sell your information."],
-    ["How we store it", "Your request is sent to our business email and stored securely so we can follow up."],
+    ["How we store it", "Your request is stored privately so we can follow up. When email notifications are configured, it is also sent to our business mailbox."],
     ["Your choices", `You can ask us to see, correct or delete your information at any time by emailing ${SITE.email}.`],
     ["Contact", `Questions about this policy? Email ${SITE.email}.`],
   ]} />

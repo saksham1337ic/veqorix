@@ -31,9 +31,13 @@ export const Header = () => {
           ))}
         </nav>
         <div className="hidden lg:flex items-center gap-3">
-          <a href={`tel:${SITE.phoneTel}`} className="inline-flex items-center gap-2 font-semibold text-[#1D3A5F] hover:text-[#D94814]" data-testid="header-call-link">
-            <Phone className="h-4 w-4" /> {SITE.phoneDisplay}
-          </a>
+          {SITE.phoneIsPlaceholder ? (
+            <span className="inline-flex items-center gap-2 text-sm text-[#495560]" data-testid="header-call-unavailable"><Phone className="h-4 w-4" /> Call — coming soon</span>
+          ) : (
+            <a href={`tel:${SITE.phoneTel}`} className="inline-flex items-center gap-2 font-semibold text-[#1D3A5F] hover:text-[#D94814]" data-testid="header-call-link">
+              <Phone className="h-4 w-4" /> {SITE.phoneDisplay}
+            </a>
+          )}
           <Link to="/quote" className="btn-primary" data-testid="header-quote-btn">Get a free quote</Link>
         </div>
         <button className="lg:hidden inline-flex h-12 w-12 items-center justify-center rounded-lg border border-[#E2E0D8] bg-white"

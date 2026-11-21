@@ -17,24 +17,24 @@ export const PACKAGES = [
     billing: "One-time build + optional monthly care plan",
     price: null,
     carePrice: null,
-    summary: "A fast, professional website that gets you calls and quote requests.",
-    includes: ["Custom website for your business", "Works great on phones", "Tap-to-call and quote form", "Optional care plan: hosting, updates, small edits"],
+    summary: "A clear, professional website that helps customers understand your offering and take the next step.",
+    includes: ["Custom website for your business", "Works great on phones", "Contact and quote forms, with tap-to-call where useful", "Optional care plan: hosting, updates, small edits"],
   },
   {
     id: "get-found",
     name: "Get Found",
     billing: "Monthly",
     price: null,
-    summary: "Show up when people nearby search for what you do.",
-    includes: ["Everything in Website", "Google Business Profile set up and managed", "Local SEO for your service area", "Monthly report in plain English"],
+    summary: "Local visibility for eligible businesses that meet customers in person.",
+    includes: ["Everything in Website", "Google Business Profile setup and management for eligible businesses", "Local SEO for your actual locations or service area", "Monthly report in plain English"],
   },
   {
     id: "get-calls",
     name: "Get Calls",
     billing: "Monthly",
     price: null,
-    summary: "Google Ads that put your phone number in front of people ready to hire.",
-    includes: ["Everything in Website", "Google Ads set up and managed", "Ads aimed at your towns and services", "Monthly report in plain English"],
+    summary: "Google Ads for businesses where relevant phone inquiries are a priority.",
+    includes: ["Everything in Website", "Google Ads set up and managed", "Ads aimed at your audience, offering and market", "Monthly report in plain English"],
     featured: true,
   },
   {
@@ -42,7 +42,7 @@ export const PACKAGES = [
     name: "Grow",
     billing: "Monthly",
     price: null,
-    summary: "Website, Google Ads and social media, all handled for you.",
+    summary: "A website, Google Ads and social media for businesses ready for ongoing marketing.",
     includes: ["Everything in Get Calls", "Social media posts and short videos", "A monthly content plan", "Monthly report in plain English"],
   },
 ];
@@ -98,10 +98,11 @@ export const RESULTS_WORK = [
 ];
 
 export const HOME_FAQ = [
-  { q: "I'm not technical. How much work is this for me?", a: "Very little. We have one call to learn about your business, you send a few photos of your work, and we do the rest: writing, design, setup and launch." },
-  { q: "How much does it cost?", a: "It depends on what you need and how big your service area is. Fill in the quote form and we'll send you a clear price. No pressure, no obligation." },
+  { q: "I'm not technical. How much work is this for me?", a: "We start with a short conversation about your business and customers. You share your business details and available content; we handle the agreed writing, design and setup, with your approval." },
+  { q: "How much does it cost?", a: "It depends on your goals and the work involved. Fill in the quote form and we'll send you a clear price. No pressure, no obligation." },
   { q: "Do I own my website?", a: "Yes. Your domain, your content and your photos are yours." },
-  { q: "Do you work with businesses in Canada and the USA?", a: "Yes. We work remotely with trade businesses across both countries." },
+  { q: "Do you work with businesses in Canada and the USA?", a: "Yes. We work remotely with small businesses across industries in both countries, including local and online businesses. Home-service contractors are welcome too." },
   { q: "Who will I be talking to?", a: "One point of contact who knows your account. You won't get passed around." },
-  { q: "Can I see what my site would look like?", a: "Yes. We have a live sample site for nine trades. Open the one for your trade and click around." },
+  { q: "Are the sample websites your only industries?", a: "No. The nine sample sites are contractor demos for made-up businesses, not client work or a complete list of who we serve. Browse them for ideas, then tell us what your business needs." },
+  { q: "Do I need every service?", a: "No. We recommend help based on your goals. Local SEO is for eligible businesses serving local customers; call handling makes sense only if calls are part of your business." },
 ];

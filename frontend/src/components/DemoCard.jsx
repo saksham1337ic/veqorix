@@ -4,9 +4,8 @@ import { DemoPreview } from "@/components/DemoPreview";
 
 export const DemoCard = ({ trade, live = true }) => (
   <article className="group flex flex-col overflow-hidden rounded-xl border-2 border-[#E2E0D8] bg-white transition-[border-color,transform] duration-200 hover:-translate-y-1 hover:border-[#C5C0B3]" data-testid={`demo-card-${trade.slug}`}>
-    <div className="flex items-center gap-1.5 border-b border-[#E2E0D8] bg-[#F4F3EF] px-3 py-2">
-      <span className="h-2.5 w-2.5 rounded-full bg-[#C5C0B3]" /><span className="h-2.5 w-2.5 rounded-full bg-[#C5C0B3]" /><span className="h-2.5 w-2.5 rounded-full bg-[#C5C0B3]" />
-      <span className="ml-2 truncate font-mono text-xs text-[#6E7D8A]">{trade.demo.replace("https://", "")}</span>
+    <div className="flex items-center justify-between gap-2 border-b border-[#E2E0D8] bg-[#F4F3EF] px-3 py-2">
+      <span className="font-mono text-xs font-semibold text-[#495560]" data-testid={`demo-label-${trade.slug}`}>Contractor demo · Not client work</span>
     </div>
     <DemoPreview trade={trade} live={live} />
     <div className="flex flex-1 flex-col p-5">

@@ -32,16 +32,22 @@ export const CheckList = ({ items, testId }) => (
 
 export const CtaButtons = ({ trade, light }) => (
   <div className="flex flex-col gap-3 sm:flex-row">
-    <Link to={trade ? `/quote?trade=${trade}` : "/quote"} className="btn-primary btn-lg" data-testid="cta-quote-btn">
+    <Link to={trade ? `/quote?trade=${trade}` : "/quote"} className="btn-primary btn-lg" data-testid={light ? "final-cta-quote-btn" : "cta-quote-btn"}>
       Get a free quote <ArrowRight className="h-5 w-5" />
     </Link>
-    <a href={`tel:${SITE.phoneTel}`} className={light ? "btn-outline-light btn-lg" : "btn-outline btn-lg"} data-testid="cta-call-btn">
-      <Phone className="h-5 w-5" /> Call {SITE.phoneDisplay}
-    </a>
+    {SITE.phoneIsPlaceholder ? (
+      <button type="button" disabled className={`${light ? "btn-outline-light" : "btn-outline"} btn-lg cursor-not-allowed opacity-70`} data-testid={light ? "final-cta-call-btn" : "cta-call-btn"}>
+        <Phone className="h-5 w-5" /> Call — coming soon
+      </button>
+    ) : (
+      <a href={`tel:${SITE.phoneTel}`} className={light ? "btn-outline-light btn-lg" : "btn-outline btn-lg"} data-testid={light ? "final-cta-call-btn" : "cta-call-btn"}>
+        <Phone className="h-5 w-5" /> Call {SITE.phoneDisplay}
+      </a>
+    )}
   </div>
 );
 
-export const FinalCta = ({ title = "Ready for more calls?", sub = "Tell us about your business. We'll send a clear quote, usually within one business day.", trade }) => (
+export const FinalCta = ({ title = "Let's talk about your business", sub = "Tell us what you need. We'll send a clear quote, usually within one business day.", trade }) => (
   <section className="bg-[#181E24] py-20 sm:py-24" data-testid="final-cta">
     <div className="container-x">
       <h2 className="max-w-2xl font-display text-3xl font-black tracking-tight text-white sm:text-5xl">{title}</h2>

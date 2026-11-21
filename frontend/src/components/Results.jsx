@@ -30,7 +30,7 @@ export const Results = () => (
 export const Testimonials = () => (
   <section className="py-20" data-testid="testimonials-section">
     <div className="container-x">
-      <SectionHead eyebrow="What clients say" title="Words from trade owners" />
+      <SectionHead eyebrow="Testimonials to come" title="Space for genuine client feedback" />
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         <Placeholder testId="testimonial-placeholder-1">PLACEHOLDER — add a real testimonial</Placeholder>
         <Placeholder testId="testimonial-placeholder-2">PLACEHOLDER — add a real testimonial</Placeholder>
